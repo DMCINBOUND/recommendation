@@ -1,0 +1,37 @@
+const express = require('express');
+const nodemailer = require('nodemailer');
+const app = express();
+const port = 3000;
+
+app.use(express.json());
+
+let transporter = nodemailer.createTransport({
+    // Konfiguration für deinen E-Mail-Dienst
+    service: 'deinEmailService',
+    auth: {
+        user: 'deine@EmailAdresse.de',
+        pass: 'deinPasswort'
+    }
+});
+
+app.post('/sendEmail', (req, res) => {
+    let mailOptions = {
+        from: 'deine@EmailAdresse.de',
+        to: 'info@dmc-immobilien.de',
+        subject: 'Neue Immobilienempfehlung',
+        text: 'Hier sind die Details: ' + JSON.stringify(req.body)
+        // Für HTML-E-Mails würde hier das HTML-Format folgen
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        res.send('Email gesendet!');
+    });
+});
+
+app.listen(port, () => {
+    console.log(`Server läuft auf Port ${port}`);
+});
