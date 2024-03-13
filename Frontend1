@@ -1,0 +1,15 @@
+document.getElementById('recommendationForm').onsubmit = function(event) {
+    event.preventDefault(); // Verhindert das tatsächliche Absenden des Formulars
+
+    var formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        address: document.getElementById('address').value,
+        priceRange: document.getElementById('priceRange').value,
+        privacy: document.getElementById('privacy').checked
+    };
+
+    // Hier musst du deine API oder serverseitige Logik aufrufen, um die E-Mail zu senden
+    console.log(formData); // Dies würde durch den tatsächlichen E-Mail-Sendecode ersetzt
+};
